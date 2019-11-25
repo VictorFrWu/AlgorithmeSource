@@ -1,0 +1,46 @@
+Public int sildingwindow(String [] strs. .. )
+{
+
+//处理边界条件   参数判断
+If(  condition )
+ return 
+
+//初始化变量
+//left 代表窗口左边， 慢指针
+//count 计数，用于判断何时触发条件
+//result 记录结果
+Int left = 0, count = 0 ,result = 0;
+
+//申请一个hash数组, 也可用其他数据结构比如hashmap
+int[] hash = new hash[128]
+
+//遍历数组，right代表窗口右侧，快指针
+For(int right = 0; right<strs.length;right++){
+//每次移动一个格子后，更新hash
+Hash[strs[right]]++;
+
+//更具窗口变更来改变条件
+If(Hash[strs[right]] = ..)
+{
+Count++;
+}
+
+// 如果当前条件不满足，移动左指针直至条件满足为止 
+while (count >  ..) 
+{ 
+    …
+     if (…)
+    { 
+         count—; 
+     } 
+      hash[A[l]]++;
+       left++; 
+ }
+
+//条件根据具体题目要求确定返回结果	
+res = Math.max(res, right-left+1);
+}
+
+Return res;
+
+}
