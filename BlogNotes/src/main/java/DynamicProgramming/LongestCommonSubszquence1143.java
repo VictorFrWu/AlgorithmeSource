@@ -1,5 +1,8 @@
 package DynamicProgramming;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.junit.Test;
 
 /**
@@ -66,6 +69,29 @@ public class LongestCommonSubszquence1143 {
 		return printLCS(text1.length(), text2.length(), index, dp, text1, text2);
 	}
 
+	// print the longest common subsequence
+	public Set<String> longestCommonSubsequence3(String text1, String text2) {
+		TreeSet<String> set = new TreeSet<String>();
+		if (text1.length() == 0 || text2.length() == 0)
+			return set;
+		int[][] dp = new int[text1.length() + 1][text2.length() + 1];
+		for (int i = 0; i < text1.length(); i++) {
+			for (int j = 0; j < text2.length(); j++) {
+				if (text1.charAt(i) == text2.charAt(j)) {
+					dp[i + 1][j + 1] = dp[i][j] + 1;
+				} else {
+					dp[i + 1][j + 1] = Math.max(dp[i + 1][j], dp[i][j + 1]);
+				}
+			}
+		}
+		int index = dp[text1.length()][text2.length()];
+		if (index == 0)
+			return set;
+		StringBuffer sb = new StringBuffer();
+		printAllLcs(index, dp, text1, text2, set, text1.length(), text2.length(), sb);
+		return set;
+	}
+
 	private String printLCS(int m, int n, int index, int[][] dp, String text1, String text2) {
 		// TODO Auto-generated method stub
 		StringBuilder sb = new StringBuilder();
@@ -90,9 +116,32 @@ public class LongestCommonSubszquence1143 {
 		return sb.reverse().toString();
 	}
 
+	// all largest common string
+	private void printAllLcs(int index, int[][] dp, String text1, String text2, Set<String> set, int i, int j,
+			StringBuffer sb) {
+		while (i > 0 && j > 0) {
+			if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
+				sb.append(text1.charAt(i - 1));
+				i--;
+				j--;
+			} else {
+				if (dp[i - 1][j] > dp[i][j - 1]) {
+					i--;
+				} else if (dp[i - 1][j] > dp[i][j - 1]) {
+					j--;
+				} else {
+					printAllLcs(index, dp, text1, text2, set, i - 1, j, sb);
+					printAllLcs(index, dp, text1, text2, set, i, j - 1, sb);
+					return;
+				}
+			}
+		}
+		set.add(sb.reverse().toString());
+	}
+
 	@Test
 	public void test() {
-		String text1 = "abcde", text2 = "azcegx";
-		System.out.println(longestCommonSubsequence2(text1, text2));
+		String text1 = "artificiale", text2 = "algorithme";
+		System.out.println(longestCommonSubsequence3(text1, text2));
 	}
 }
