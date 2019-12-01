@@ -3,45 +3,56 @@ package BattleDev11Novembre2019;
 import java.util.Scanner;
 
 /**
- * @author he.wu For your grandmother's 80th birthday, you are responsible for
- *         preparing the gift: a square wooden frame to paste a picture of the
- *         star of the evening. Because your budget is tight, you decide to
- *         build the frames in your workshop. You decide to reuse old materials.
- *         You have a box full of thin planks of wood of the same thickness and
- *         width but of different lengths. Your grandmother won't blame you if
- *         the frames aren't all the same size, having said that - she insists
- *         that they're square. You then decide to randomly take 4 boards in the
- *         box and cut them, if necessary, in order to build the largest square
- *         frame possible. Note that when you cut a board, you keep the part you
- *         are interested in and you throw the second part into the box, you can
- *         no longer use it for this frame. The objective is to determine how
- *         many centimetres you need to throw back into the box if you build the
- *         largest square frame possible. Data format Input Rows 1 to 4: an
- *         integer between 10 and 1,000 representing to the length of a wooden
- *         plank expressed in centimetres. Output An integer representing the
- *         number of centimetres of wood you throw into the cardboard if you
- *         build the largest square frame possible
+ * @author Pour les 80 ans de votre grand-mère, vous êtes chargé de préparer le
+ *         cadeau des invités : un cadre carré en bois pour y coller une photo
+ *         de la star de la soirée.
+ * 
+ *         Votre budget étant assez serré, vous décidez de fabriquer les cadres
+ *         dans votre atelier. Et tant qu’à faire, si vous vous en chargez vous
+ *         -même, autant utiliser de la récup. Vous avez un carton plein de
+ *         fines planches de bois de même épaisseur et de même largeur mais de
+ *         longueurs différentes. Votre grand-mère ne vous en voudra pas si les
+ *         cadres ne sont pas tous de la même taille, par-contre elle insiste
+ *         pour qu’ils soient carrés.
+ * 
+ *         Vous décidez alors de prendre au hasard 4 planches dans le carton et
+ *         de les découper, si besoin, de manière à avoir un cadre carré le plus
+ *         grand possible.
+ * 
+ *         À noter que lorsque vous découpez une planche, vous gardez la partie
+ *         qui vous intéresse et vous jetez la seconde partie dans le carton,
+ *         vous ne pouvez plus l’utiliser pour ce cadre.
+ * 
+ *         L’objectif est de déterminer combien de centimètres de bois vous
+ *         aurez jeté dans le carton au total si vous construisez le cadre carré
+ *         le plus grand possible.
+ * 
+ * 
+ *         Format des données
+ * 
+ *         Entrée
+ * 
+ *         Lignes 1 à 4 : un entier compris entre 1 et 1 000 correspondant à la
+ *         longueur d'une planche en bois en centimètres.
+ * 
+ *         Sortie
+ * 
+ *         Un entier correspondant au nombre de centimètres de bois que vous
+ *         jetez dans le carton si vous réalisez le plus grand cadre carré
+ *         possible.
  */
+
 public class birthday2 {
 
-	public static void main(String[] argv) throws Exception {
+	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int sum = 0;
-		int i = 0;
-		int[] record = new int[4];
-		int min = Integer.MAX_VALUE;
-		while (sc.hasNextLine() && i < 4) {
-			record[i] = sc.nextInt();
-			sum += record[i];
-			min = Math.min(min, record[i]);
-			i++;
-			/* Lisez les données et effectuez votre traitement */
-		}
-		/*
-		 * Vous pouvez aussi effectuer votre traitement une fois que vous avez lu toutes
-		 * les données.
-		 */
-		System.out.println(sum - 4*min);
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		int c = sc.nextInt();
+		int d = sc.nextInt();
+		int min = Math.min(a, Math.min(b, Math.min(c, d)));
+		int res = a + b + c + d - (4 * min);
+		System.out.println(res);
 	}
 
 }

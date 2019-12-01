@@ -71,39 +71,19 @@ import java.util.Scanner;
  */
 public class SeminaireEntreprise {
 
-	public static void main(String[] argv) throws Exception {
-		String line;
+	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int people = Integer.valueOf(sc.nextLine());
-		if (people < 10 || people > 100)
-			System.out.println("your people doesn't correspond to question condition");
-		else {
-			int i = 0;
-			int[][] strs = new int[people][2];
-			String[] name = new String[people];
-			while (sc.hasNextLine() && i < people) {
-				line = sc.nextLine();
-				String[] temp = line.split(" ");
-				strs[i][0] = i;
-				strs[i][1] = Integer.valueOf(temp[1]);
-				name[i] = temp[0];
-				i++;
+		int people = sc.nextInt();
+		String res = new String();
+		int min = Integer.MAX_VALUE;
+		for (int i = 0; i < people; i++) {
+			String[] line = sc.next().split(" ");
+			if (min < Integer.parseInt(line[1])) {
+				res = line[0];
+				min = Integer.parseInt(line[1]);
 			}
-			/*
-			 * Vous pouvez aussi effectuer votre traitement une fois que vous avez lu toutes
-			 * les données.
-			 */
-			int min = strs[0][1];
-			int res = 0;
-			for (int j = 1; j < strs.length; j++) {
-				if (strs[j][1] < min) {
-					min = strs[j][1];
-					res = j;
-				}
-			}
-			System.out.println(name[res]);
 		}
-
+		System.out.println(res);
 	}
 
 }
