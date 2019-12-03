@@ -14,14 +14,19 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class SnakePanel extends JPanel implements KeyListener, ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// 7 photo
-	ImageIcon up = new ImageIcon("up.png"); // 向上的蛇头
-	ImageIcon down = new ImageIcon("down.png"); // 向下的蛇头
-	ImageIcon left = new ImageIcon("left.png"); // 向左的蛇头
-	ImageIcon right = new ImageIcon("right.png"); // 向右的蛇头
-	ImageIcon food = new ImageIcon("food.png"); // 食物
-	ImageIcon body = new ImageIcon("body.png"); // 蛇的身体
-	ImageIcon title = new ImageIcon("title.jpg"); // 游戏界面的主题
+	String prefix = "/Users/mac/Desktop/AlgorithmeSource/BlogNotes/img/";
+	ImageIcon up = new ImageIcon(prefix + "up.png"); // 向上的蛇头
+	ImageIcon down = new ImageIcon(prefix + "down.png"); // 向下的蛇头
+	ImageIcon left = new ImageIcon(prefix + "left.png"); // 向左的蛇头
+	ImageIcon right = new ImageIcon(prefix + "right.png"); // 向右的蛇头
+	ImageIcon food = new ImageIcon(prefix + "food.png"); // 食物
+	ImageIcon body = new ImageIcon(prefix + "/body.png"); // 蛇的身体
+	ImageIcon title = new ImageIcon(prefix + "/title.jpg"); // 游戏界面的主题
 
 	int[] snakex = new int[750];
 	int[] snakey = new int[750];
