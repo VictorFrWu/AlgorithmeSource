@@ -67,7 +67,12 @@ public class SnakePanel extends JPanel implements KeyListener, ActionListener {
 	public void paint(Graphics g) {
 		this.setBackground(Color.white); // 设置画布背景颜色
 		title.paintIcon(this, g, 25, 11);
-		g.fillRect(25, 75, 850, 650);
+		int height = 625;
+		int width = 850;
+		g.fillRect(25, 75, 850, 625);
+		g.setColor(Color.blue);
+		g.drawRect(25, 75, width, height);
+		
 
 		if (direction.equals("R"))
 			right.paintIcon(this, g, snakex[0], snakey[0]);
