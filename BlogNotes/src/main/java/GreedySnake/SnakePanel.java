@@ -19,7 +19,7 @@ public class SnakePanel extends JPanel implements KeyListener, ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	// 7 photo
-	String prefix = "/Users/mac/Desktop/AlgorithmeSource/BlogNotes/img/";
+	String prefix = "C:\\Users\\he.wu\\eclipse-workspace\\AlgorithmeSource\\BlogNotes\\img\\";
 	ImageIcon up = new ImageIcon(prefix + "up.png"); // 向上的蛇头
 	ImageIcon down = new ImageIcon(prefix + "down.png"); // 向下的蛇头
 	ImageIcon left = new ImageIcon(prefix + "left.png"); // 向左的蛇头
@@ -35,8 +35,8 @@ public class SnakePanel extends JPanel implements KeyListener, ActionListener {
 	int score = 0;
 	String direction = "R";
 
-	boolean isStarted = false;
-	boolean isFailed = false;
+	boolean isStarted = false;// pause
+	boolean isFailed = false;// game over
 
 	Timer timer = new Timer(100, this);
 
@@ -72,7 +72,6 @@ public class SnakePanel extends JPanel implements KeyListener, ActionListener {
 		g.fillRect(25, 75, 850, 625);
 		g.setColor(Color.blue);
 		g.drawRect(25, 75, width, height);
-		
 
 		if (direction.equals("R"))
 			right.paintIcon(this, g, snakex[0], snakey[0]);
@@ -114,23 +113,26 @@ public class SnakePanel extends JPanel implements KeyListener, ActionListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		int KeyCode = e.getKeyCode();
-		if (KeyCode == KeyEvent.VK_SPACE) { // 敲击空格现实/消除提示信息
-			if (isFailed) {
-				isStarted = false; // 可以将这两行放入setup中
-				isFailed = false;
-				setup();
-			} else
+		if (!isStarted) {
+			if (KeyCode == KeyEvent.VK_SPACE) {
+				if (isFailed)
+					setup();
+				else
+					isStarted = !isStarted;
+			}
+		} else {
+			if (KeyCode == KeyEvent.VK_SPACE)
 				isStarted = !isStarted;
-		} else if (KeyCode == KeyEvent.VK_UP && direction != "D")
-			direction = "U";
-		else if (KeyCode == KeyEvent.VK_DOWN && direction != "U")
-			direction = "D";
-		else if (KeyCode == KeyEvent.VK_RIGHT && direction != "L")
-			direction = "R";
-		else if (KeyCode == KeyEvent.VK_LEFT && direction != "R")
-			direction = "L";
+			else if (KeyCode == KeyEvent.VK_UP && direction != "D")
+				direction = "U";
+			else if (KeyCode == KeyEvent.VK_DOWN && direction != "U")
+				direction = "D";
+			else if (KeyCode == KeyEvent.VK_RIGHT && direction != "L")
+				direction = "R";
+			else if (KeyCode == KeyEvent.VK_LEFT && direction != "R")
+				direction = "L";
+		}
 	}
 
 	@Override
@@ -143,13 +145,14 @@ public class SnakePanel extends JPanel implements KeyListener, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		timer.start();
 
+		// snake move
 		if (isStarted && !isFailed) {
-
+			// body move from tail to head
 			for (int i = len; i > 0; i--) {
 				snakex[i] = snakex[i - 1];
 				snakey[i] = snakey[i - 1];
 			}
-
+			// move head
 			if (direction.equals("R")) {
 				snakex[0] = snakex[0] + 25;
 				if (snakex[0] > 850)
