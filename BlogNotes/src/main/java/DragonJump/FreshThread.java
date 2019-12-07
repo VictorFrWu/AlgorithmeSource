@@ -1,41 +1,37 @@
 package DragonJump;
 
-import sun.applet.Main;
-
 import javax.swing.*;
 import java.awt.*;
 
-//线程类
+//thread class
 public class FreshThread extends Thread {
-    GamePanl p;
+	private GamePanl p;
 
-    public FreshThread(GamePanl p) {
-        this.p = p;//给类成员属性赋值
-    }
+	public FreshThread(GamePanl p) {
+		this.p = p;
+	}
 
-    @Override
-    public void run() {
+	@Override
+	public void run() {
+		while (!p.isFinish()) {
+			p.repaint();// repaint
+			try {
+				Thread.sleep(p.FRESH);// refresh
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 
-        while (!p.isFinish()) {
-            p.repaint();//重新绘制图片
-            try {
-                Thread.sleep(p.FRESH);//休眠刷新时间
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        Container c=p.getParent();
-        while(!(c instanceof  MainFrame)){
-            c=c.getParent();
-        }
-        MainFrame f= (MainFrame) c;
-        JOptionPane.showMessageDialog(f,"         G A M E  O V E R");
+		Container c = p.getParent();
+		while (!(c instanceof MainFrame)) {
+			c = c.getParent();
+		}
+		MainFrame f = (MainFrame) c;
+		if (p.isFinish()) {
+			JOptionPane.showMessageDialog(f, "         G A M E  O V E R");
+			f.restart();
+		}
+		
+	}
 
-       f.restart();
-
-    }
-
-    }
-
-
-
+}
