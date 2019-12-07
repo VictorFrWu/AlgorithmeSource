@@ -19,6 +19,7 @@ public class Obstacle {
 	BufferedImage cactus01, cactus02, cactus03, bird1, bird2;// cactus and bird
 	int speed = BackgroundImage.SPEED - 1;
 	int temp = r.nextInt(4) + 1;// 1-2-3
+	int kind = 0;
 
 	public Obstacle() {
 		// charge pictures
@@ -34,21 +35,25 @@ public class Obstacle {
 		}
 		x = 800;
 		yCactus = 209;
-
-		// 随机输出障碍物
+		yBird = r.nextInt(200);
+		// random get obstacle
 		switch (temp) {
 		case 1:
 			image = cactus01;
+			kind = 0;
 			break;
 		case 2:
 			image = cactus02;
+			kind = 0;
 			break;
 		case 3:
 			image = cactus03;
 			yCactus = 200;
+			kind = 0;
 			break;
 		default:
 			judge = true;
+			kind = 1;
 		}
 
 	}
@@ -62,7 +67,6 @@ public class Obstacle {
 			} else {
 				image = bird2;
 			}
-
 			Dragon.stepTime += Dragon.fresh;
 		}
 	}

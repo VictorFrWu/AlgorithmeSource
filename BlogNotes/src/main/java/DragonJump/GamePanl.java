@@ -5,9 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -39,43 +39,51 @@ public class GamePanl extends JPanel implements KeyListener {
 		g2 = image.createGraphics();
 		Dragon = new Dragon();// instance dragon
 		background = new BackgroundImage();// instance background
-
 		list.add(new Obstacle());
-
 		FreshThread t = new FreshThread(this);// refresh thread
 		t.start();
 
 	}
 
 	private void painImage() {// paint pictures
-		Dragon.move();// 让小恐龙移动
-		background.roll();// 调用滚动图片
-		g2.drawImage(background.image, 0, 0, this);// 绘制背景
-		g2.drawImage(background.image_yun1, background.x_yun1, background.y_yun1, this);// 绘制白云
-		g2.drawImage(background.image_yun2, background.x_yun2, background.y_yun2, this);// 绘制白云
+		Dragon.move();
+		background.roll();
+		g2.drawImage(background.image, 0, 0, this);// draw background
+		g2.drawImage(background.image_yun1, background.x_yun1, background.y_yun1, this);// draw cloud 1
+		g2.drawImage(background.image_yun2, background.x_yun2, background.y_yun2, this);// draw cloud 2
+		g2.drawImage(Dragon.image, Dragon.x, Dragon.y, this);// draw dragon
 
-		g2.drawImage(Dragon.image, Dragon.x, Dragon.y, this);// 绘制恐龙
-
-		if (addObstacleTimer >= 1400) {// 计算分数时间判断
-			list.add(new Obstacle());
+		if (addObstacleTimer >= 1500) {// 1.5s refresh an obstacle
+			Random rand = new Random();
+			int tmp = rand.nextInt(100);
+			if (tmp < 70) {
+				list.add(new Obstacle());
+			}
 			addObstacleTimer = 0;
+
 		}
 
 		for (int i = 0; i < list.size(); i++) {
 			Obstacle o = list.get(i);
-			o.move();
-			o.bridMove();
-
-			g2.drawImage(o.image, o.x, o.yCactus, this);// 绘制障碍
-
-			// 判断障碍物是否和头、脚相撞
-			if (o.bounds().intersects(Dragon.bounds1()) || o.bounds().intersects(Dragon.bounds2())) {
-
-				gameOver();// 游戏结束
-
+			if (o.kind == 0) {
+				o.move();
+				g2.drawImage(o.image, o.x, o.yCactus, this);// draw cactus
+				// knocking head and food
+				if (o.cactusBounds().intersects(Dragon.bounds1()) || o.cactusBounds().intersects(Dragon.bounds2())) {
+					gameOver();// game over
+				}
+			} else {
+				o.move();
+				o.bridMove();
+				g2.drawImage(o.image, o.x, o.yBird, this);
+				// knocking head and food
+				if (o.birdBounds().intersects(Dragon.bounds1()) || o.birdBounds().intersects(Dragon.bounds2())) {
+					gameOver();// game over
+				}
 			}
+
 		}
-		// 分数++
+		// score++
 		if (addObstacleTimer >= 50) {
 			score += 1;
 			addScoreTimer = 0;
