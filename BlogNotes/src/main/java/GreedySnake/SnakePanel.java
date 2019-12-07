@@ -52,6 +52,7 @@ public class SnakePanel extends JPanel implements KeyListener, ActionListener {
 			if (poisonExist) {
 				poisonx = rand.nextInt(34) * 25 + 25;
 				poisony = rand.nextInt(24) * 25 + 75;
+				return;
 			}
 			if (!poisonExist) {
 				poisonx = 0;
@@ -106,6 +107,15 @@ public class SnakePanel extends JPanel implements KeyListener, ActionListener {
 		snake[2][1] = 100;
 	}
 
+	private boolean checkPosition(int[][] sanke, int x, int y) {
+		for (int i = 0; i < sanke.length; i++) {
+			if (x == snake[i][0] && y == snake[i][1])
+				return false;
+		}
+		return true;
+
+	}
+
 	public void paint(Graphics g) {
 		this.setBackground(Color.white); // set background color
 		title.paintIcon(this, g, 25, 11);
@@ -143,6 +153,13 @@ public class SnakePanel extends JPanel implements KeyListener, ActionListener {
 				record = score;
 		}
 
+		boolean bool = checkPosition(snake, foodx, foody);
+		while (!bool) {
+			foodType = getRandomNumber();
+			foodx = rand.nextInt(34) * 25 + 25;
+			foody = rand.nextInt(24) * 25 + 75;
+			bool = checkPosition(snake, foodx, foody);
+		}
 		// paint food
 		if (foodType == 1)
 			orange.paintIcon(this, g, foodx, foody);
@@ -152,17 +169,8 @@ public class SnakePanel extends JPanel implements KeyListener, ActionListener {
 			apple.paintIcon(this, g, foodx, foody);
 
 		// check snake and poison are superposition or not
-		boolean superPosition = false;
-		for (int i = 0; i < snake.length; i++) {
-			if (snake[i][0] == poisonx && snake[i][1] == poisony) {
-				superPosition = true;
-				break;
-			}
-		}
-
-		// paint poison
-		while (!superPosition && poisonx == foodx && poisony == foody && snake[0][0] == poisonx
-				&& snake[0][1] == poisony) {
+		bool = checkPosition(snake, poisonx, poisony);
+		while (!bool || (poisonx == foodx && poisony == foody)) {
 			poisonx = rand.nextInt(34) * 25 + 25;
 			poisony = rand.nextInt(24) * 25 + 75;
 		}
