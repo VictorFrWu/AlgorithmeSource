@@ -31,7 +31,7 @@ public class FreshThread extends Thread {
 			JOptionPane.showMessageDialog(f, "         G A M E  O V E R");
 			f.restart();
 		}
-		
+
 	}
 
 }

@@ -64,7 +64,6 @@ public class Dragon {
 		} else {
 			image = image2;
 		}
-
 		stepTime += fresh;
 
 	}
@@ -73,12 +72,12 @@ public class Dragon {
 		jumpState = true;
 	}
 
-	// touch cactus
+	// hit head
 	public Rectangle bounds1() {
 		return new Rectangle(x + 20, y, 20, 10);
 	}
 
-	// touch cactus
+	// hit foot
 	public Rectangle bounds2() {
 		return new Rectangle(x + 5, y + 35, 20, 10);
 	}

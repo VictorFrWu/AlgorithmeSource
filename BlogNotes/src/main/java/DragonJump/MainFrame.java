@@ -4,11 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-	GamePanl p;
+	public static int topScore = 0;// record
+	private GamePanl p;
 
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,13 +38,9 @@ public class MainFrame extends JFrame {
 		c.removeAll();
 		GamePanl gp = new GamePanl();
 		c.add(gp);
-
 		addKeyListener(gp);
-
 		c.validate();// reverify
 
 	}
-
-	public static int topScore = 0;// record
 
 }
