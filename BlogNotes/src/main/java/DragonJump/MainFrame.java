@@ -17,7 +17,6 @@ public class MainFrame extends JFrame {
 		// add game panel to container
 		c.add(p);
 		addKeyListener(p);
-
 	}
 
 	public static void main(String[] args) {
@@ -28,7 +27,6 @@ public class MainFrame extends JFrame {
 		// center to your screen
 		frame.setLocationRelativeTo(null);
 		frame.setTitle("dragon jump");
-
 	}
 
 	// restart after game over

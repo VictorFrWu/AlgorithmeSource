@@ -37,7 +37,7 @@ public class GamePanl extends JPanel implements KeyListener {
 
 	// game panel construct function
 	public GamePanl() {
-		image = new BufferedImage(734, 286, BufferedImage.TYPE_INT_BGR);
+		image = new BufferedImage(734, 286, BufferedImage.TYPE_INT_RGB);
 		g2 = image.createGraphics();
 		dragon = new Dragon();// instance dragon
 		background = new BackgroundImage();// instance background
@@ -58,7 +58,7 @@ public class GamePanl extends JPanel implements KeyListener {
 //		g2.setColor(Color.BLACK);
 //		Rectangle rt = dragon.bounds1();
 //		g2.fillRect(rt.x, rt.y, rt.width, rt.height);
-		
+
 		if (addObstacleTimer >= 1500) {// 1.5s refresh an obstacle
 			Random rand = new Random();
 			int tmp = rand.nextInt(100);
@@ -68,27 +68,26 @@ public class GamePanl extends JPanel implements KeyListener {
 			addObstacleTimer = 0;
 
 		}
-
-		for (int i = 0; i < list.size(); i++) {
-			Obstacle o = list.get(i);
-			if (o.kind == 0) {
-				o.move();
-				g2.drawImage(o.image, o.x, o.yCactus, this);// draw cactus
-				// knocking head and food
-				if (o.cactusBounds().intersects(dragon.bounds1()) || o.cactusBounds().intersects(dragon.bounds2())) {
-					gameOver();// game over
-				}
-			} else {
-				o.move();
-				o.bridMove();
-				g2.drawImage(o.image, o.x, o.yBird, this);
-				// knocking head and food
-				if (o.birdBounds().intersects(dragon.bounds1()) || o.birdBounds().intersects(dragon.bounds2())) {
-					gameOver();// game over
-				}
-			}
-
-		}
+//
+//		for (int i = 0; i < list.size(); i++) {
+//			Obstacle o = list.get(i);
+//			if (o.kind == 0) {
+//				o.move();
+//				g2.drawImage(o.image, o.x, o.yCactus, this);// draw cactus
+//				// knocking head and food
+//				if (o.cactusBounds().intersects(dragon.bounds1()) || o.cactusBounds().intersects(dragon.bounds2())) {
+//					gameOver();// game over
+//				}
+//			} else {
+//				o.move();
+//				o.bridMove();
+//				g2.drawImage(o.image, o.x, o.yBird, this);
+//				// knocking head and food
+//				if (o.birdBounds().intersects(dragon.bounds1()) || o.birdBounds().intersects(dragon.bounds2())) {
+//					gameOver();// game over
+//				}
+//			}
+//		}
 		// score++
 		if (addObstacleTimer >= 50) {
 			score += 1;
@@ -118,6 +117,7 @@ public class GamePanl extends JPanel implements KeyListener {
 	public void paint(Graphics g) {
 		painImage();
 		g.drawImage(image, 0, 0, this);
+		this.setBackground(Color.black);
 	}
 
 	public boolean isFinish() {

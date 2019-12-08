@@ -1,5 +1,6 @@
 package DragonJump;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,12 +19,15 @@ public class BackgroundImage {
 	int x_yun2 = 1200, y_yun2 = rand.nextInt(100);
 	int x_over = 240, y_over = 50;
 	static final int SPEED = 3;// speed of background
+	int start = 0;
 
 	public BackgroundImage() {
 
 		try {
 			image1 = ImageIO.read(new File("image/map.png"));// ground
 			image2 = ImageIO.read(new File("image/map1.png"));// ground
+			image1 = ImageIO.read(new File("image/map.png"));// ground night
+			image2 = ImageIO.read(new File("image/map1.png"));// ground night
 			image_over = ImageIO.read(new File("image/game_over.png"));
 			image_yun1 = ImageIO.read(new File("image/yun.png"));// cloud
 			image_yun2 = ImageIO.read(new File("image/yun.png"));// cloud
@@ -31,13 +35,13 @@ public class BackgroundImage {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		image = new BufferedImage(734, 286, BufferedImage.TYPE_INT_BGR);
+		image = new BufferedImage(734, 286, BufferedImage.TYPE_INT_RGB);
 		g2 = image.createGraphics();
 		x1 = 0;// first image
 		x2 = 734;// second image
+
 		g2.drawImage(image1, x1, 0, null);
 		g2.drawImage(image2, x2, 0, null);
-
 	}
 
 	// background roller
@@ -48,6 +52,7 @@ public class BackgroundImage {
 		// pass first image
 		if (x1 <= -734) {
 			x1 = 734;
+			start++;
 		}
 		// pass second image
 		if (x2 <= -734) {
@@ -57,6 +62,13 @@ public class BackgroundImage {
 		g2.drawImage(image2, x2, 0, null);
 		x_yun1 -= 1;
 		x_yun2 -= 1;
+		if (start % 3 == 0) {
+			g2.drawImage(image1, x1, 0, Color.black, null);
+			g2.drawImage(image2, x2, 0, Color.black, null);
+		} else {
+			g2.drawImage(image1, x1, 0, null);
+			g2.drawImage(image2, x2, 0, null);
+		}
 		if (x_yun1 <= 0) {
 			g2.drawImage(image_yun1, x_yun1, y_yun1, null);
 			x_yun1 = 750;
