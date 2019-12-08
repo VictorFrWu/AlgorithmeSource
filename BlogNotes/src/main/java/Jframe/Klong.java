@@ -1,28 +1,24 @@
-package DragonJump;
+package Jframe;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * dragon
- */
-public class Dragon {
-	public int x, y;// dragon two dimension coordinate
+import javax.imageio.ImageIO;
+
+public class Klong {
+	int x, y;
 	BufferedImage image;// mainly image
 	BufferedImage image1, image2, image3, image_over;
 	int stepTime = 0;// time control
-	int fresh = GamePanl.FRESH;
+	int fresh = DragonPanel.FRESH;
 
 	boolean jumpState = false;// jump state
 	int jumpHeight = 100;// jump height
 	final int LOWEST_Y = 200;// origin position of dragon
 	int jumpValue = 5;// jump speed
 
-	public Dragon() {
-
+	public Klong() {
 		try {
 			image1 = ImageIO.read(new File("image/long1.png"));
 			image2 = ImageIO.read(new File("image/long2.png"));
@@ -67,18 +63,8 @@ public class Dragon {
 
 	}
 
-	public void jump() {// jump
+	public void jump() {
 		jumpState = true;
-	}
-
-	// hit head
-	public Rectangle bounds1() {
-		return new Rectangle(x + 20, y, 20, 10);
-	}
-
-	// hit foot
-	public Rectangle bounds2() {
-		return new Rectangle(x + 5, y + 35, 20, 10);
 	}
 
 }

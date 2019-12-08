@@ -19,6 +19,10 @@ import javax.swing.JPanel;
  */
 public class GamePanl extends JPanel implements KeyListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private BufferedImage image;// mainly image
 	private Graphics2D g2;// paint image
 	private Dragon dragon;// dragon
@@ -53,8 +57,8 @@ public class GamePanl extends JPanel implements KeyListener {
 		if (isPasue) {
 			g2.setColor(Color.WHITE);
 			g2.setFont(new Font("arial", Font.BOLD, 30));
-			g2.drawString("Press Space to start / pause", 100, 150);
-		}else {
+			g2.drawString("Press Space to start / pause", 120, 150);
+		} else {
 			dragon.move();
 			background.roll();
 			g2.drawImage(background.image, 0, 0, this);// draw background
@@ -62,9 +66,9 @@ public class GamePanl extends JPanel implements KeyListener {
 			g2.drawImage(background.image_yun2, background.x_yun2, background.y_yun2, this);// draw cloud 2
 			g2.drawImage(dragon.image, dragon.x, dragon.y, this);// draw dragon
 
-//			g2.setColor(Color.BLACK);
-//			Rectangle rt = dragon.bounds1();
-//			g2.fillRect(rt.x, rt.y, rt.width, rt.height);
+			g2.setColor(Color.BLACK);
+			Rectangle rt = dragon.bounds1();
+			g2.fillRect(rt.x, rt.y, rt.width, rt.height);
 
 			if (addObstacleTimer >= 1500) {// 1.5s refresh an obstacle
 				Random rand = new Random();
@@ -82,7 +86,8 @@ public class GamePanl extends JPanel implements KeyListener {
 					o.move();
 					g2.drawImage(o.image, o.x, o.yCactus, this);// draw cactus
 					// knocking head and food
-					if (o.cactusBounds().intersects(dragon.bounds1()) || o.cactusBounds().intersects(dragon.bounds2())) {
+					if (o.cactusBounds().intersects(dragon.bounds1())
+							|| o.cactusBounds().intersects(dragon.bounds2())) {
 						gameOver();// game over
 					}
 				} else {
@@ -95,7 +100,7 @@ public class GamePanl extends JPanel implements KeyListener {
 					}
 				}
 			}
-			
+
 			// score++
 			if (addObstacleTimer >= 50) {
 				score += 1;
@@ -103,16 +108,14 @@ public class GamePanl extends JPanel implements KeyListener {
 			}
 
 			// 5 digits present scores
-			g2.drawString(String.format("%05d", score), 620, 35);
-			g2.drawString("Hi", 480, 35);
-			g2.drawString(String.format("%05d", +MainFrame.topScore), 520, 35); // top score
-
-			
+			g2.drawString(String.format("%05d", score), 640, 35);
+			g2.drawString("Hi", 520, 35);
+			g2.drawString(String.format("%05d", +MainFrame.topScore), 560, 35); // top score
 
 			addObstacleTimer += FRESH;
 			addScoreTimer += FRESH;
 		}
-		
+
 	}
 
 	// game over
@@ -129,7 +132,6 @@ public class GamePanl extends JPanel implements KeyListener {
 	public void paint(Graphics g) {
 		painImage();
 		g.drawImage(image, 0, 0, this);
-		this.setBackground(Color.black);
 	}
 
 	public boolean isFinish() {
@@ -143,7 +145,6 @@ public class GamePanl extends JPanel implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-
 		int code = e.getKeyCode();
 		if (code == KeyEvent.VK_SPACE) {
 			dragon.jump();
@@ -151,7 +152,6 @@ public class GamePanl extends JPanel implements KeyListener {
 		if (code == KeyEvent.VK_ENTER) {
 			isPasue = !isPasue;
 		}
-
 	}
 
 	@Override
