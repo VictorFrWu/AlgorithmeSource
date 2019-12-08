@@ -13,6 +13,9 @@ public class FreshThread extends Thread {
 
 	@Override
 	public void run() {
+		if (p.isPasue) {
+			run();
+		}
 		while (!p.isFinish()) {
 			p.repaint();// repaint
 			try {
