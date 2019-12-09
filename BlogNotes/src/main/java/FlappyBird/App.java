@@ -14,10 +14,9 @@ public class App {
         frame.setSize(WIDTH, HEIGHT);
         frame.setTitle("Falppy Bird");
         frame.setLocationRelativeTo(null);
-
+        frame.setResizable(false);
         Keyboard keyboard = Keyboard.getInstance();
         frame.addKeyListener(keyboard);
-
         GamePanel panel = new GamePanel();
         frame.add(panel);
     }
