@@ -6,71 +6,80 @@ import java.awt.geom.AffineTransform;
 
 public class Bird {
 
-    public int x;
-    public int y;
-    public int width;
-    public int height;
+	public int x;
+	public int y;
+	public int width;
+	public int height;
 
-    public boolean dead;
+	public boolean dead;
 
-    public double yvel;
-    public double gravity;
+	public double yvel;
+	public double gravity;
 
-    private int jumpDelay;
-    private double rotation;
+	private int jumpDelay;
+	private double rotation;
 
-    private Image image;
-    private Keyboard keyboard;
+	private Image image;
+	private Keyboard keyboard;
 
-    public Bird() {
-        x = 100;
-        y = 150;
-        yvel = 0;
-        width = 45;
-        height = 32;
-        gravity = 0.5;
-        jumpDelay = 0;
-        rotation = 0.0;
-        dead = false;
+	int stepTime = 0;
+	int fresh = GamePanel.REFESH;
 
-        keyboard = Keyboard.getInstance();
-    }
+	public Bird() {
+		x = 100;
+		y = 150;
+		yvel = 0;
+		width = 45;
+		height = 32;
+		gravity = 0.5;
+		jumpDelay = 0;
+		rotation = 0.0;
+		dead = false;
 
-    public void update() {
-        yvel += gravity;
+		keyboard = Keyboard.getInstance();
+	}
 
-        if (jumpDelay > 0)
-            jumpDelay--;
+	public void update() {
+		yvel += gravity;
 
-        if (!dead && keyboard.isDown(KeyEvent.VK_SPACE) && jumpDelay <= 0) {
-            yvel = -10;
-            jumpDelay = 10;
-        }
+		if (jumpDelay > 0)
+			jumpDelay--;
 
-        y += (int)yvel;
-    }
+		if (!dead && keyboard.isDown(KeyEvent.VK_SPACE) && jumpDelay <= 0) {
+			yvel = -10;
+			jumpDelay = 10;
+		}
 
-    public Render getRender() {
-        Render r = new Render();
-        r.x = x;
-        r.y = y;
+		y += (int) yvel;
+	}
 
-        if (image == null) {
-            image = Util.loadImage("lib/yellowbird-midflap.png");     
-        }
-        r.image = image;
+	public Render getRender() {
+		Render r = new Render();
+		r.x = x;
+		r.y = y;
 
-        rotation = (90 * (yvel + 20) / 20) - 90;
-        rotation = rotation * Math.PI / 180;
+		int tmp = stepTime / 100 % 3;
+		if (tmp == 1) {
+			image = Util.loadImage("lib/yellowbird-midflap.png");
+		} else if (tmp == 2) {
+			image = Util.loadImage("lib/yellowbird-downflap.png");
+		} else {
+			image = Util.loadImage("lib/yellowbird-upflap.png");
+		}
+		stepTime += fresh;
+		r.image = image;
 
-        if (rotation > Math.PI / 2)
-            rotation = Math.PI / 2;
+		rotation = (90 * (yvel + 20) / 20) - 90;
+		rotation = rotation * Math.PI / 180;
 
-        r.transform = new AffineTransform();
-        r.transform.translate(x + width / 2, y + height / 2);
-        r.transform.rotate(rotation);
-        r.transform.translate(-width / 2, -height / 2);
+		if (rotation > Math.PI / 2)
+			rotation = Math.PI / 2;
 
-        return r;
-    }
+		r.transform = new AffineTransform();
+		r.transform.translate(x + width / 2, y + height / 2);
+		r.transform.rotate(rotation);
+		r.transform.translate(-width / 2, -height / 2);
+
+		return r;
+	}
 }

@@ -12,7 +12,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	private Game game;
 
-	private int refresh = 25;
+	public static int REFESH = 25;
 
 	public GamePanel() {
 		game = new Game();
@@ -22,6 +22,12 @@ public class GamePanel extends JPanel implements Runnable {
 	public void update() {
 		game.update();
 		repaint();
+	}
+
+	public void drawScore(Graphics2D g2D) {
+		g2D.setFont(new Font("TimesRoman", Font.PLAIN, 24));
+		g2D.drawString(Integer.toString(game.score), 10, 465);
+		g2D.drawString("hi     " + Integer.toString(game.topScore), 420, 465);
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -40,16 +46,14 @@ public class GamePanel extends JPanel implements Runnable {
 			g2D.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 			g2D.drawString("Press SPACE to start", 150, 240);
 		} else {
-			g2D.setFont(new Font("TimesRoman", Font.PLAIN, 24));
-			g2D.drawString(Integer.toString(game.score), 10, 465);
+			drawScore(g2D);
 		}
 
 		if (game.paused) {
 			g2D.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 			g2D.drawString("Press P to continue", 150, 240);
 		} else {
-			g2D.setFont(new Font("TimesRoman", Font.PLAIN, 24));
-			g2D.drawString(Integer.toString(game.score), 10, 465);
+			drawScore(g2D);
 		}
 
 		if (game.gameover) {
@@ -62,7 +66,7 @@ public class GamePanel extends JPanel implements Runnable {
 		try {
 			while (true) {
 				update();
-				Thread.sleep(refresh);
+				Thread.sleep(REFESH);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
