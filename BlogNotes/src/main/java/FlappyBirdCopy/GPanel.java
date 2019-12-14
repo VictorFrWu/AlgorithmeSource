@@ -45,8 +45,8 @@ public class GPanel extends JPanel implements KeyListener {
 	protected void painImage() {
 		g2.drawImage(image1, 0, 0, this);
 		g2.drawImage(image2, 0, 0, this);
-		g2.drawImage(p2.image2, p2.x, p2.y, this);
-		g2.drawImage(p2.image2, p2.x, p2.y, this);
+		g2.drawImage(p2.imageSouth, p2.x, p2.y, this);
+		g2.drawImage(p1.imageNorth, p1.x, p1.y, this);
 		g2.drawImage(b1.image, b1.x, b1.y, this);
 	}
 

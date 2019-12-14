@@ -19,15 +19,15 @@ public class Pipe {
 	public String orientation;
 
 	public BufferedImage image;
-	public BufferedImage image1;
-	public BufferedImage image2;
+	public BufferedImage imageSouth;
+	public BufferedImage imageNorth;
 
 	public Pipe(String orientation) {
 		this.orientation = orientation;
 		reset();
 		try {
-			image1 = ImageIO.read(new File("lib/pipe-north.png"));
-			image2 = ImageIO.read(new File("lib/pipe-south.png"));
+			imageNorth = ImageIO.read(new File("lib/pipe-north.png"));
+			imageSouth = ImageIO.read(new File("lib/pipe-south.png"));
 
 
 		} catch (IOException e) {

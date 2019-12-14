@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -66,9 +65,9 @@ public class GamePanl extends JPanel implements KeyListener {
 			g2.drawImage(background.image_yun2, background.x_yun2, background.y_yun2, this);// draw cloud 2
 			g2.drawImage(dragon.image, dragon.x, dragon.y, this);// draw dragon
 
-			g2.setColor(Color.BLACK);
-			Rectangle rt = dragon.bounds1();
-			g2.fillRect(rt.x, rt.y, rt.width, rt.height);
+//			g2.setColor(Color.BLACK);
+//			Rectangle rt = dragon.bounds1();
+//			g2.fillRect(rt.x, rt.y, rt.width, rt.height);
 
 			if (addObstacleTimer >= 1500) {// 1.5s refresh an obstacle
 				Random rand = new Random();

@@ -8,7 +8,7 @@ public class Game {
 
     public static final int PIPE_DELAY = 100;
 
-    private Boolean paused;
+    public Boolean paused;
 
     private int pauseDelay;
     private int restartDelay;
