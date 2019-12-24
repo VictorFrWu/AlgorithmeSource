@@ -72,6 +72,7 @@ import java.util.Scanner;
 public class SeminaireEntreprise {
 
 	public static void main(String[] args) {
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		int people = sc.nextInt();
 		String res = new String();

@@ -11,7 +11,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-
 public class DragonPanel extends JPanel implements KeyListener {
 	/**
 	 *   
@@ -49,27 +48,23 @@ public class DragonPanel extends JPanel implements KeyListener {
 		g.drawImage(image, 0, 0, this);
 	}
 
-	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		int code = e.getKeyCode();
 		if (code == KeyEvent.VK_SPACE) {
 			klong.jump();
 		}
-		
+
 	}
 
-	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	
 }

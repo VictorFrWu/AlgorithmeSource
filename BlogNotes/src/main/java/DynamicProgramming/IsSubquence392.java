@@ -9,7 +9,7 @@ public class IsSubquence392 {
 		List<Integer>[] idx = new List[256]; // Just for clarity
 		for (int i = 0; i < t.length(); i++) {
 			if (idx[t.charAt(i)] == null)
-				idx[t.charAt(i)] = new ArrayList<>();
+				idx[t.charAt(i)] = new ArrayList<Integer>();
 			idx[t.charAt(i)].add(i);
 		}
 

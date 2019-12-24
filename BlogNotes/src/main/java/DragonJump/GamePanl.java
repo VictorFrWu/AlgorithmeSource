@@ -137,12 +137,10 @@ public class GamePanl extends JPanel implements KeyListener {
 		return finish;
 	}
 
-	@Override
 	public void keyTyped(KeyEvent e) {
 
 	}
 
-	@Override
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
 		if (code == KeyEvent.VK_SPACE) {
@@ -153,7 +151,6 @@ public class GamePanl extends JPanel implements KeyListener {
 		}
 	}
 
-	@Override
 	public void keyReleased(KeyEvent e) {
 
 	}

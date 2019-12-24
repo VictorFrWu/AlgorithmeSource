@@ -46,7 +46,6 @@ public class SnakePanel extends JPanel implements KeyListener, ActionListener {
 	Timer timer = new Timer(100, this);
 	Timer poisonTime = new Timer(15 * 1000, new ActionListener() {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			if (poisonExist) {
@@ -195,13 +194,11 @@ public class SnakePanel extends JPanel implements KeyListener, ActionListener {
 		g.drawString("you hit the wall, the game will be over", 900, 300);
 	}
 
-	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void keyPressed(KeyEvent e) {
 		int KeyCode = e.getKeyCode();
 		if (isFailed) {
@@ -224,13 +221,11 @@ public class SnakePanel extends JPanel implements KeyListener, ActionListener {
 		}
 	}
 
-	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		// 1 reset timer
 		timer.start();

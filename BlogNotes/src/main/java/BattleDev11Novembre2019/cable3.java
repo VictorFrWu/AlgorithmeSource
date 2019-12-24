@@ -90,10 +90,11 @@ import java.util.Scanner;
 public class cable3 {
 
 	public static void main(String[] argv) throws Exception {
+		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
-		PriorityQueue<Integer> cables = new PriorityQueue<>();
+		PriorityQueue<Integer> cables = new PriorityQueue<Integer>();
 		// prority queue of requests, sort by his start and end
-		PriorityQueue<Req> requests = new PriorityQueue<>(
+		PriorityQueue<Req> requests = new PriorityQueue<Req>(
 				Comparator.comparingInt((Req rr) -> rr.from).thenComparingInt(rr -> rr.to));
 
 		int n = in.nextInt();// number of cables
@@ -108,7 +109,7 @@ public class cable3 {
 			requests.add(r);
 		}
 		// record request that we have seen
-		List<Req> seen = new ArrayList<>();
+		List<Req> seen = new ArrayList<Req>();
 		// check correspond cable is free or not
 		boolean[] rem = new boolean[m];
 		// loop all of requests, if operators can handle all request, we can empty this
