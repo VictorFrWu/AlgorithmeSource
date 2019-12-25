@@ -239,10 +239,10 @@ public class GamePanel extends JPanel implements KeyListener {
 		g.drawString("top score = " + topscore, 270, 90);
 		g.drawString("the next rectangle：", 270, 140);
 		// draw the next shape
-		for (int i = 0; i < rowRect; i++) {
-			for (int j = 0; j < colRect; j++) {
+		for (int i = 0; i < colRect; i++) {
+			for (int j = 0; j < rowRect; j++) {
 				if (shapes[nextShapeType][nextShapeState][i * colRect + j] == 1) {
-					g.fillRect(270 + (j * RectWidth), 200 + (i * RectWidth), RectWidth, RectWidth);
+					g.fillRect(270 + (i * RectWidth), 200 + (j * RectWidth), RectWidth, RectWidth);
 				}
 			}
 		}
