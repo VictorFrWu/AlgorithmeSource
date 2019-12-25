@@ -13,9 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements KeyListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int mapRow = 21;// map height
 	private int mapCol = 12;// map width
-	private int mapGame[][] = new int[mapRow][mapCol];// create a two dimension array for stocking
+	private int mapGame[][] = new int[mapCol][mapRow];// create a two dimension array for stocking
 
 	private Timer timer;
 	private int score = 0;// record score
@@ -38,35 +42,8 @@ public class GamePanel extends JPanel implements KeyListener {
 	 * second and dimension save the position of shape, maximum shape can have four
 	 * state
 	 */
-	private final int shapes[][][] = new int[][][] {
-			// T counter clock wise
-			{ { 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
-					{ 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0 } },
-			// I counter clock wise
-			{ { 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0 },
-					{ 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0 } },
-			// S counter clock wise
-			{ { 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
-					{ 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 } },
-			// Z counter clock wise
-			{ { 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
-					{ 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 } },
-			// J counter clock wise
-			{ { 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0 }, { 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
-					{ 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 } },
-			// L counter clock wise
-			{ { 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
-					{ 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } },
-			// square counter clock wise
-			{ { 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-					{ 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } } };
+	utils u = new utils();
+	int[][][] shapes = utils.Shapes;
 
 	private int rowRect = 4;
 	private int colRect = 4;// each shape state will display by a 4*4 matrix
@@ -77,34 +54,31 @@ public class GamePanel extends JPanel implements KeyListener {
 		createRect();
 		initMap();// init map
 		setWall();// set wall
-		// CreateRect();
-		timer = new Timer(500, new TimerListener());
+		timer = new Timer(500, new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				moveDown();
+			}
+		});
 		timer.start();
-	}
-
-	class TimerListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			MoveDown();
-		}
 	}
 
 	public void setWall()// set wall O,11 column and 20 row is wall
 	{
-		for (int i = 0; i < mapRow; i++)// paints column
+		for (int i = 0; i < mapRow; i++)// paints wall of column
 		{
-			mapGame[i][0] = 2;
-			mapGame[i][11] = 2;
+			mapGame[0][i] = 2;
+			mapGame[11][i] = 2;
 		}
-		for (int j = 1; j < mapCol - 1; j++)// paint row
+		for (int j = 1; j < mapCol - 1; j++)// paint wall of row
 		{
-			mapGame[20][j] = 2;
+			mapGame[j][20] = 2;
 		}
 	}
 
 	public void initMap()// init map，wall is 2，whitespace is 0，square is 1
 	{
-		for (int i = 0; i < mapRow; i++) {
-			for (int j = 0; j < mapCol; j++) {
+		for (int i = 0; i < mapCol; i++) {
+			for (int j = 0; j < mapRow; j++) {
 				mapGame[i][j] = 0;
 			}
 		}
@@ -120,38 +94,45 @@ public class GamePanel extends JPanel implements KeyListener {
 			curShapeType = nextShapeType;
 			curShapeState = nextShapeState;
 		}
+		// nextShapeType = random.nextInt(shapes.length);
 		nextShapeType = random.nextInt(shapes.length);
 		nextShapeState = random.nextInt(shapes[0].length);
-		posx = 0;
-		posy = 1;// left top for creating new shape
+		posx = 1;
+		posy = 0;// left top for creating new shape
 		if (gameOver(posx, posy, curShapeType, curShapeState)) {
+			repaint();
 			Container c = this.getParent();
 			while (!(c instanceof GameFrame)) {
 				c = c.getParent();
 			}
 			GameFrame f = (GameFrame) c;
-			JOptionPane.showConfirmDialog(f, "game over！");
-			newGame();
+			int dialogResult = JOptionPane.showConfirmDialog(f, "Are you want to restart this game?", "Game over?",
+					JOptionPane.OK_CANCEL_OPTION);
+			if (dialogResult == JOptionPane.OK_OPTION) {
+				newGame();
+			} else {
+				System.exit(0);// close application
+			}
 		}
+	}
+
+	public boolean isOrNoMove(int x, int y, int ShapeType, int ShapeState)// check this shape can move or not
+	{
+		for (int i = 0; i < colRect; i++) {
+			for (int j = 0; j < rowRect; j++) {
+				if (shapes[ShapeType][ShapeState][i * colRect + j] == 1 && mapGame[x + i][y + j] == 1
+						|| shapes[ShapeType][ShapeState][i * colRect + j] == 1 && mapGame[x + i][y + j] == 2) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	public boolean gameOver(int x, int y, int ShapeType, int ShapeState)// check game over or not
 	{
 		if (isOrNoMove(x, y, ShapeType, ShapeState)) {
 			return false;
-		}
-		return true;
-	}
-
-	public boolean isOrNoMove(int x, int y, int ShapeType, int ShapeState)// check this shape can move or not
-	{
-		for (int i = 0; i < rowRect; i++) {
-			for (int j = 0; j < colRect; j++) {
-				if (shapes[ShapeType][ShapeState][i * colRect + j] == 1 && mapGame[x + i][y + j] == 1
-						|| shapes[ShapeType][ShapeState][i * colRect + j] == 1 && mapGame[x + i][y + j] == 2) {
-					return false;
-				}
-			}
 		}
 		return true;
 	}
@@ -167,10 +148,10 @@ public class GamePanel extends JPanel implements KeyListener {
 		repaint();
 	}
 
-	public void MoveDown()// move down
+	public void moveDown()// move down
 	{
-		if (isOrNoMove(posx + 1, posy, curShapeType, curShapeState)) {
-			posx++;
+		if (isOrNoMove(posx, posy + 1, curShapeType, curShapeState)) {
+			posy++;
 		} else {
 			addToMap();// add to map
 			checkLine();
@@ -181,24 +162,24 @@ public class GamePanel extends JPanel implements KeyListener {
 
 	public void moveLeft()// move to left
 	{
-		if (isOrNoMove(posx, posy - 1, curShapeType, curShapeState)) {
-			posy--;
+		if (isOrNoMove(posx - 1, posy, curShapeType, curShapeState)) {
+			posx--;
 		}
 		repaint();
 	}
 
 	public void moveRight()// move to right
 	{
-		if (isOrNoMove(posx, posy + 1, curShapeType, curShapeState)) {
-			posy++;
+		if (isOrNoMove(posx + 1, posy, curShapeType, curShapeState)) {
+			posx++;
 		}
 		repaint();
 	}
 
 	public void addToMap()// add rectangle to map
 	{
-		for (int i = 0; i < rowRect; i++) {
-			for (int j = 0; j < colRect; j++) {
+		for (int i = 0; i < colRect; i++) {
+			for (int j = 0; j < rowRect; j++) {
 				if (shapes[curShapeType][curShapeState][i * colRect + j] == 1) {
 					mapGame[posx + i][posy + j] = shapes[curShapeType][curShapeState][i * colRect + j];
 				}
@@ -212,7 +193,7 @@ public class GamePanel extends JPanel implements KeyListener {
 		for (int i = mapRow - 2; i >= 0; i--) {
 			count = 0;
 			for (int j = 1; j < mapCol - 1; j++) {
-				if (mapGame[i][j] == 1) {
+				if (mapGame[j][i] == 1) {
 					count++;
 				} else
 					break;
@@ -220,7 +201,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			if (count >= mapCol - 2) { // exist a row of full 1
 				for (int k = i; k > 0; k--) {
 					for (int p = 1; p < mapCol - 1; p++) {
-						mapGame[k][p] = mapGame[k - 1][p];
+						mapGame[p][k] = mapGame[p][k - 1];
 					}
 				}
 				score += 10;
@@ -237,30 +218,31 @@ public class GamePanel extends JPanel implements KeyListener {
 		{
 			for (int j = 0; j < colRect; j++) {
 				if (shapes[curShapeType][curShapeState][i * colRect + j] == 1) {
-					g.fillRect((posy + j + 1) * RectWidth, (posx + i + 1) * RectWidth, RectWidth, RectWidth);
+					g.fillRect((posx + i + 1) * RectWidth, (posy + j + 1) * RectWidth, RectWidth, RectWidth);
 				}
 			}
 		}
-		for (int i = 0; i < mapRow; i++)// draw wall and react has existed in image
+		for (int i = 0; i < mapCol; i++)// draw wall and react has existed in image
 		{
-			for (int j = 0; j < mapCol; j++) {
+			for (int j = 0; j < mapRow; j++) {
 				if (mapGame[i][j] == 2)// draw wall
 				{
-					g.drawRect((j + 1) * RectWidth, (i + 1) * RectWidth, RectWidth, RectWidth);
+					g.drawRect((i + 1) * RectWidth, (j + 1) * RectWidth, RectWidth, RectWidth);
 				}
 				if (mapGame[i][j] == 1)// draw rectangle
 				{
-					g.fillRect((j + 1) * RectWidth, (i + 1) * RectWidth, RectWidth, RectWidth);
+					g.fillRect((i + 1) * RectWidth, (j + 1) * RectWidth, RectWidth, RectWidth);
 				}
 			}
 		}
-		g.drawString("score = " + score, 350, 15);
-		g.drawString("top score = " + topscore, 350, 40);
-		g.drawString("the next rectangle：", 400, 100);
+		g.drawString("score = " + score, 270, 50);
+		g.drawString("top score = " + topscore, 270, 90);
+		g.drawString("the next rectangle：", 270, 140);
+		// draw the next shape
 		for (int i = 0; i < rowRect; i++) {
 			for (int j = 0; j < colRect; j++) {
 				if (shapes[nextShapeType][nextShapeState][i * colRect + j] == 1) {
-					g.fillRect(225 + (j * RectWidth), 150 + (i * RectWidth), RectWidth, RectWidth);
+					g.fillRect(270 + (j * RectWidth), 200 + (i * RectWidth), RectWidth, RectWidth);
 				}
 			}
 		}
@@ -268,8 +250,8 @@ public class GamePanel extends JPanel implements KeyListener {
 
 	public void newGame()// restartGame
 	{
-		score = 0;
 		topscore = score > topscore ? score : topscore;
+		score = 0;
 		initMap();
 		setWall();
 		createRect();
@@ -297,7 +279,7 @@ public class GamePanel extends JPanel implements KeyListener {
 			turn();
 			break;
 		case KeyEvent.VK_DOWN:// rotate down
-			MoveDown();
+			moveDown();
 			break;
 		case KeyEvent.VK_LEFT:// left move
 			moveLeft();

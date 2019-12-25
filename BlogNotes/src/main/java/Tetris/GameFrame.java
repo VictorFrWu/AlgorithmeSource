@@ -14,8 +14,8 @@ public class GameFrame extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int widthFrame = 500;
-	private int heightFrame = 600;
+	private int widthFrame = 400;
+	private int heightFrame = 500;
 	private JMenu menuone = new JMenu("Game");// create first menu
 	private JMenuItem newGame = menuone.add("restart");// a submenu
 	private JMenuItem exitGame = menuone.add("exit");
