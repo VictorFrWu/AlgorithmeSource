@@ -1,6 +1,10 @@
 package BattleDev11Novembre2019;
 
-abstract class Animal {
+interface AnimalService {
+	String getName();
+}
+
+abstract class Animal implements AnimalService{
 	String name;
 
 	Animal(String name) {

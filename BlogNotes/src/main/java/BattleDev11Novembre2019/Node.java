@@ -7,7 +7,24 @@ public class Node {
 	Node(int value) {
 		this.value = value;
 	}
+	
+	public Node searchBST(Node root, int val) {
+		if (root == null) {
+			return root;
+		}
+		if (root.value < val) {
+			return searchBST(root.right, val);
+		}
+		if (root.value > val) {
+			return searchBST(root.left, val);
+		}
+		return root;
+    }
 
+	public Node searchBST(int val) {
+		return searchBST(this,val);
+    }
+	
 	public Node find(int val) {
 		if (val > this.value) {
 			if(this.right == null) 
@@ -23,16 +40,16 @@ public class Node {
 	}
 
 	public static void main(String[] args) {
-		Node p = new Node(10);
-		Node p1 = new Node(9);
-		Node p2 = new Node(15);
-		Node p3 = new Node(11);
-		Node p4 = new Node(20);
+		Node p = new Node(-10);
+		Node p1 = new Node(-11);
+		Node p2 = new Node(-9);
+		Node p3 = new Node(-8);
+		Node p4 = new Node(-7);
 		p.left = p1;
 		p.right = p2;
-		p2.left = p3;
+		p2.right = p3;
 		p3.right = p4;
-		Node n = p.find(7);
+		Node n = p.searchBST(-7);
 		System.out.println(n);
 	}
 }
