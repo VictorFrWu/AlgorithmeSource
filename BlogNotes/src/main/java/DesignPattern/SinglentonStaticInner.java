@@ -1,6 +1,6 @@
 package DesignPattern;
 
-public class SinglentonStaticInner {
+public class SinglentonStaticInner{
 	private SinglentonStaticInner() {
 		System.out.println("hello singleton inner");
 	}
