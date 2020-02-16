@@ -9,13 +9,10 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 
 public class MethodTwo {
-	class ThreadToGo {
-		int value = 1;
-	}
 
 	private Lock lock = new ReentrantLock(true);
 	private Condition condition = lock.newCondition();
-	private final ThreadToGo threadToGo = new ThreadToGo();
+	private static int value = 1;
 
 	public Runnable newThreadOne() {
 		final String[] inputArr = Helper.buildNoArr(52);
@@ -26,10 +23,10 @@ public class MethodTwo {
 				for (int i = 0; i < arr.length; i = i + 2) {
 					try {
 						lock.lock();
-						while (threadToGo.value == 2)
+						while (value == 2)
 							condition.await();
 						Helper.print(arr[i], arr[i + 1]);
-						threadToGo.value = 2;
+						value = 2;
 						condition.signal();
 					} catch (InterruptedException e) {
 						e.printStackTrace();
@@ -50,10 +47,10 @@ public class MethodTwo {
 				for (int i = 0; i < arr.length; i++) {
 					try {
 						lock.lock();
-						while (threadToGo.value == 1)
+						while (value == 1)
 							condition.await();
 						Helper.print(arr[i]);
-						threadToGo.value = 1;
+						value = 1;
 						condition.signal();
 					} catch (Exception e) {
 						e.printStackTrace();
