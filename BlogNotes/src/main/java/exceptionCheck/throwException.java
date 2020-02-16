@@ -14,3 +14,4 @@ public class throwException {
 		checkAge(15); // Set age to 15 (which is below 18...)
 	}
 }
+
