@@ -1,6 +1,8 @@
 package Calypso;
 
 import java.util.EmptyStackException;
+import java.util.HashMap;
+import java.util.Map;
 
 class Stack {
 
@@ -32,4 +34,38 @@ class Stack {
 			System.arraycopy(old, 0, elements, 0, size);
 		}
 	}
+}
+
+
+public class stacktest {
+	static Map<Integer, NewObject> map = new HashMap<Integer, NewObject>();
+
+    public static void main(String[] args){
+    	Stack stack = new Stack(50000);
+    	 System.out.println("KB: " + (double) (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 10240);
+    	for (int i = 0; i < 100000; i++) {
+			stack.push(i);
+		}
+    	 System.out.println("KB: " + (double) (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 10240);
+        //fillMemory(25);
+        for (int i = 0; i < 100000; i++) {
+			stack.pop();
+		}
+        System.out.println("KB: " + (double) (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 10240);
+    }
+
+    static int j=0;
+    public static void fillMemory(int i){
+
+        for(int k=0; k< 2000; k++)
+            map.put(j++, new NewObject());
+
+    }
+
+
+    public static class NewObject{
+        long i = 0L;
+        long j = 0L;
+        long k = 0L;
+    }
 }
