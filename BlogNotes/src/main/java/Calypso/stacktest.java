@@ -4,13 +4,13 @@ import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.Map;
 
-class Stack {
+class StackT {
 
     // keep these two fields as they​​​​​​‌​​​‌​‌‌​‌‌‌​​‌‌​‌​‌‌‌‌‌​ are
     private Object[] elements;
 	private int size = 0;
 
-	public Stack(int initialCapacity) {
+	public StackT(int initialCapacity) {
 		elements = new Object[initialCapacity];
 	}
 
@@ -41,7 +41,7 @@ public class stacktest {
 	static Map<Integer, NewObject> map = new HashMap<Integer, NewObject>();
 
     public static void main(String[] args){
-    	Stack stack = new Stack(50000);
+    	StackT stack = new StackT(50000);
     	 System.out.println("KB: " + (double) (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 10240);
     	for (int i = 0; i < 100000; i++) {
 			stack.push(i);
