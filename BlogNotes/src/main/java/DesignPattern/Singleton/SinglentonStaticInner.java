@@ -1,4 +1,4 @@
-package DesignPattern;
+package DesignPattern.Singleton;
 
 public class SinglentonStaticInner{
 	private SinglentonStaticInner() {

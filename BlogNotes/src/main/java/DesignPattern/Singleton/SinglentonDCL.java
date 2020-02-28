@@ -1,4 +1,4 @@
-package DesignPattern;
+package DesignPattern.Singleton;
 
 /**
  * @author mac 2 check double check locking

@@ -1,4 +1,4 @@
-package DesignPattern;
+package DesignPattern.Singleton;
 
 /**
  * @author mac 1 constructor private 2 create a global instance 3 get a instance
