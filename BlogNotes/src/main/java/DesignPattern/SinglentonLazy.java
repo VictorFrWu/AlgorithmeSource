@@ -19,3 +19,4 @@ public class SinglentonLazy {
 		SinglentonLazy ss = SinglentonLazy.getInstanceLazy();
 	}
 }
+
