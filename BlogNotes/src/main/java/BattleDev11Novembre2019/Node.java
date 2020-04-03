@@ -7,31 +7,28 @@ public class Node {
 	Node(int value) {
 		this.value = value;
 	}
-	
+
 	public Node searchBST(Node root, int val) {
-		if (root == null) {
+		if (root == null || root.value == val) {
 			return root;
 		}
 		if (root.value < val) {
 			return searchBST(root.right, val);
 		}
-		if (root.value > val) {
-			return searchBST(root.left, val);
-		}
-		return root;
-    }
+		return searchBST(root.left, val);
+	}
 
 	public Node searchBST(int val) {
-		return searchBST(this,val);
-    }
-	
+		return searchBST(this, val);
+	}
+
 	public Node find(int val) {
 		if (val > this.value) {
-			if(this.right == null) 
+			if (this.right == null)
 				return null;
 			return this.right.find(val);
 		} else if (val < this.value) {
-			if(this.left == null)
+			if (this.left == null)
 				return null;
 			return this.left.find(val);
 		} else {

@@ -64,5 +64,11 @@ public class app {
 		// creating instace of Car.
 		Car car = new Car(engine);
 		car.move();
+
+		ArrayList a = new ArrayList(2);
+		a.add(1);
+		a.add(1);
+		a.add(1);
+		System.out.println(a.size());
 	}
 }
