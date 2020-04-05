@@ -43,8 +43,7 @@ public class Drinking {
 		}
 		return count;
 	}
-	
-	
+
 //	import java.util.*;
 //	public class Main{
 //	    public static void main(String[] args){
