@@ -1,12 +1,16 @@
 package Huawai;
 
 public class JumpFloor {
-	public int JumpFloor(int target) {
+	public static int JumpFloor(int target) {
 		if (target <= 3) {
 			return target;
 		} else {
 			return JumpFloor(target - 1) + JumpFloor(target - 2);
 		}
+	}
+
+	public static void main(String[] args) {
+		System.out.println(JumpFloor(4));
 	}
 
 	public int JumpFloor2(int target) {
